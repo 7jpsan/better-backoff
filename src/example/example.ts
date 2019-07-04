@@ -1,4 +1,4 @@
-import { BetterBackoff } from "./better-backoff";
+import { BetterBackoff } from "../better-backoff";
 
 /**
  *
@@ -11,7 +11,11 @@ function passOrFail(skew: number = 0.5) {
 // In this example everytime a success happens, we comeforth reducing the wait time and decreasing the probability of a success
 // When a fail happens, we increase the probability and backoff increasing the wait time.
 // plotting the output shows that after the calibrating initial phase the code keeps around 50% probability
-// and self manages the backoff times. That approach vs
+// and self manages the backoff times. That approach vs completely reseting is better as it gradually tends to the
+// sweet spot.
+// In a situation where the 0.05 is maintened in both comeforth and reset, reset is better overral. But in practice, resetting
+// causes the probability to drop suddenly and the factor of increase should be tweaked. Change to 0.03 after a backoff shows how
+// the difference is massive and the first approach is better on the long run.
 async function example() {
 
   let retries = 0;
@@ -23,11 +27,11 @@ async function example() {
   while (retries < limit) {
     const result = passOrFail(probability);
     if (result) {
-      bb.reset();
-      probability = probability = 0;
+      bb.comeForth();
+      probability = probability - 0.05;
     } else {
       bb.backoff();
-      probability = probability + 0.03;
+      probability = probability + 0.05;
     }
     await bb.wait((waitTime) => {
       // Min max average
