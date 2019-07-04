@@ -63,8 +63,7 @@
     "node_modules",
     "build",
     "webpack",
-    "**/*.spec.*",
+    "src/**/*.spec.*",
     "src/example/**/*.*",
-
   ]
 }
