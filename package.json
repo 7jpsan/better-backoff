@@ -1,6 +1,6 @@
 {
   "name": "better-backoff",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Backoff library using fibonacci and being clever on resetting",
   "main": "index.js",
   "scripts": {
