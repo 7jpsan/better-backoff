@@ -1,14 +1,20 @@
 {
   "name": "better-backoff",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Backoff library using fibonacci and being clever on resetting",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "lint": "tslint 'src/**/*.ts' && tslint 'test/**/*.ts'",
-    "pretest": "npm run lint",
+    "prepare": "npm run lint && npm run build && npm run test",
     "build": "rimraf dist && tsc",
-    "test": "ts-node node_modules/jasmine/bin/jasmine --reporter=jasmine-ts-console-reporter 'src/**/*.spec.ts' "
+    "test": "ts-node node_modules/jasmine/bin/jasmine --reporter=jasmine-ts-console-reporter 'src/**/*.spec.ts' ",
+    "lint": "eslint '**/*' --config .eslint.js",
+    "prettier": "prettier -c '**/*'",
+    "prettier:write": "prettier '**/*' --write"
   },
+  "files": [
+    "/dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/7jpsan/better-backoff.git"
@@ -26,12 +32,19 @@
   },
   "homepage": "https://github.com/7jpsan/better-backoff#readme",
   "devDependencies": {
-    "@types/jasmine": "^3.3.13",
-    "jasmine": "^3.4.0",
-    "jasmine-spec-reporter": "^4.2.1",
+    "@types/jasmine": "^3.6.4",
+    "@types/node": "^14.14.31",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-markdown": "^1.0.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jasmine": "^3.6.0",
+    "jasmine-spec-reporter": "^6.0.0",
     "jasmine-ts-console-reporter": "^3.1.1",
-    "ts-lint": "^4.5.1",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.2"
+    "prettier": "^2.0.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
   }
 }

@@ -1,0 +1,11 @@
+node_modules
+.ds_store
+.vscode
+.idea
+.eslintignore
+.prettierignore
+.gitignore
+.npmignore
+**/test/data
+LICENSE
+*.pem

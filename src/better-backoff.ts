@@ -5,7 +5,6 @@ export interface BetterBackoffParams {
 }
 
 export class BetterBackoff {
-
   private readonly MAX = 1000;
   private readonly MIN = 50;
 
@@ -14,10 +13,9 @@ export class BetterBackoff {
   private params: BetterBackoffParams;
 
   public constructor(params?: BetterBackoffParams) {
-
     this.params = {
       ...{ seed: 0, min: this.MIN, max: this.MAX },
-      ...params
+      ...params,
     };
 
     if (this.params.max < this.params.min || this.params.min < 0) {
@@ -44,14 +42,18 @@ export class BetterBackoff {
   public backoff() {
     const currentIndex = this.backoffList.length - 1;
     const previousIndex = currentIndex - 1;
-    this.backoffList.push(this.backoffList[previousIndex] + this.backoffList[currentIndex] + this.entropy(this.params.min, this.params.max));
+    this.backoffList.push(
+      this.backoffList[previousIndex] + this.backoffList[currentIndex] + this.entropy(this.params.min, this.params.max)
+    );
   }
 
   public async wait(exec?: (wait: number) => void) {
     if (exec) {
       exec(this.currentWait);
     }
-    return new Promise(resolve => setTimeout(resolve, this.currentWait));
+    return new Promise((resolve) => {
+      setTimeout(resolve, this.currentWait);
+    });
   }
 
   private entropy(min: number, max: number): number {
@@ -65,5 +67,4 @@ export class BetterBackoff {
   public get previousWait() {
     return this.backoffList[this.backoffList.length - 2];
   }
-
 }

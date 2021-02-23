@@ -1,7 +1,6 @@
-import { BetterBackoff } from "./better-backoff";
+import { BetterBackoff } from './better-backoff';
 
 describe('About better backoff', () => {
-
   describe('when initializing', () => {
     it('should initialize with no errors (default)', () => {
       const verify = () => new BetterBackoff();
@@ -37,11 +36,9 @@ describe('About better backoff', () => {
       const bb = new BetterBackoff({ seed: 0, max: 0, min: 0 });
       expect(bb.currentWait).toEqual(0);
     });
-
   });
 
   describe('when backing off', () => {
-
     it('it should have the wait time as zero when seed, min and max are all 0', () => {
       const bb = new BetterBackoff({ seed: 0, max: 0, min: 0 });
       for (let i = 0; i < 1000; i++) {
@@ -86,12 +83,10 @@ describe('About better backoff', () => {
         current = bb.currentWait;
       }
     });
-
   });
 
   describe('when coming forth', () => {
-
-    it("should come back to the previous wait time", () => {
+    it('should come back to the previous wait time', () => {
       const bb = new BetterBackoff({ seed: 10, min: 100, max: 1000 });
       for (let i = 0; i < 10; i++) {
         // Backing off 10 times
@@ -102,7 +97,7 @@ describe('About better backoff', () => {
       expect(bb.currentWait).toBe(previous);
     });
 
-    it("should not change when already on the minimum wait", () => {
+    it('should not change when already on the minimum wait', () => {
       const bb = new BetterBackoff({ seed: 10, min: 100, max: 1000 });
       expect(bb.currentWait).toBe(10);
       expect(bb.previousWait).toBe(0);
@@ -113,8 +108,7 @@ describe('About better backoff', () => {
   });
 
   describe('when resetting', () => {
-
-    it("should reset back to currentWait being seed after resetting", () => {
+    it('should reset back to currentWait being seed after resetting', () => {
       const bb = new BetterBackoff({ seed: 10, min: 100, max: 1000 });
       for (let i = 0; i < 10; i++) {
         // Backing off 10 times
@@ -123,12 +117,10 @@ describe('About better backoff', () => {
       bb.reset();
       expect(bb.currentWait).toBe(10);
     });
-
   });
 
   describe('when waiting', () => {
-
-    it("should not fail execution", async () => {
+    it('should not fail execution', async () => {
       const bb = new BetterBackoff();
       bb.backoff();
       const temp = bb.currentWait;
@@ -137,7 +129,7 @@ describe('About better backoff', () => {
       expect(bb.currentWait).toBe(temp);
     });
 
-    it("should call the exec function", async () => {
+    it('should call the exec function', async () => {
       const bb = new BetterBackoff();
       bb.backoff();
       const temp = bb.currentWait;
@@ -145,6 +137,5 @@ describe('About better backoff', () => {
         expect(waitTime).toBe(temp);
       });
     });
-
   });
 });

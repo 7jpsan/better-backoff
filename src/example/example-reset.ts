@@ -1,10 +1,10 @@
-import { BetterBackoff } from "../better-backoff";
+import { BetterBackoff } from '../better-backoff';
 
 /**
  *
  * @param skew probability of success [0, 1]
  */
-function passOrFail(skew: number = 0.5) {
+function passOrFail(skew = 0.5) {
   return Math.random() <= skew;
 }
 
@@ -13,7 +13,6 @@ function passOrFail(skew: number = 0.5) {
 // plotting the output shows that after the calibrating initial phase the code keeps around 50% probability
 // and self manages the backoff times. That approach vs
 async function example() {
-
   let retries = 0;
   const limit = 100;
   const bb = new BetterBackoff({ seed: 0, min: 1, max: 10 });

@@ -1,1 +1,1 @@
-export { BetterBackoff, BetterBackoffParams } from "./src/better-backoff";
+export { BetterBackoff, BetterBackoffParams } from './src/better-backoff';
